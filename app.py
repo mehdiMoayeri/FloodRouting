@@ -1272,13 +1272,22 @@ with tab_lut:
     df_lut_out = pd.DataFrame(lut_records)
     st.dataframe(df_lut_out, use_container_width=True)
 
-    fig_map = px.scatter_mapbox(
-        df_net, lat="lat", lon="lon", hover_name="station_name",
-        hover_data=["station_id", "node_type", "tier", "K_hr", "X_weight", "X_effective"],
-        color="tier", zoom=8, height=380
-    )
-    fig_map.update_traces(marker=dict(size=12))
-    fig_map.update_layout(mapbox_style="open-street-map", margin={"r": 0, "t": 0, "l": 0, "b": 0})
+if hasattr(px, "scatter_map"):
+        fig_map = px.scatter_map(
+            df_net, lat="lat", lon="lon", hover_name="station_name",
+            hover_data=["station_id", "node_type", "tier", "K_hr", "X_weight", "X_effective"],
+            color="tier", zoom=8, height=380
+        )
+        fig_map.update_traces(marker=dict(size=12))
+        fig_map.update_layout(map_style="open-street-map", margin={"r": 0, "t": 0, "l": 0, "b": 0})
+    else:
+        fig_map = px.scatter_mapbox(
+            df_net, lat="lat", lon="lon", hover_name="station_name",
+            hover_data=["station_id", "node_type", "tier", "K_hr", "X_weight", "X_effective"],
+            color="tier", zoom=8, height=380
+        )
+        fig_map.update_traces(marker=dict(size=12))
+        fig_map.update_layout(mapbox_style="open-street-map", margin={"r": 0, "t": 0, "l": 0, "b": 0})
     st.plotly_chart(fig_map, use_container_width=True)
 
 # ==========================================
