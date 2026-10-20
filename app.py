@@ -1272,7 +1272,7 @@ with tab_lut:
     df_lut_out = pd.DataFrame(lut_records)
     st.dataframe(df_lut_out, use_container_width=True)
 
-if hasattr(px, "scatter_map"):
+    if hasattr(px, "scatter_map"):
         fig_map = px.scatter_map(
             df_net, lat="lat", lon="lon", hover_name="station_name",
             hover_data=["station_id", "node_type", "tier", "K_hr", "X_weight", "X_effective"],
